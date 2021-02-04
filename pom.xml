@@ -18,7 +18,7 @@
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.version>1.11.1.Final</quarkus.platform.version>
         <surefire-plugin.version>2.22.1</surefire-plugin.version>
-        <quarkus.package.type>jar</quarkus.package.type>
+        <quarkus.package.type>uber-jar</quarkus.package.type>
 
         <quarkus.container-image.build>false</quarkus.container-image.build>
         <quarkus.container-image.push>false</quarkus.container-image.push>
@@ -47,10 +47,6 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-container-image-jib</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
