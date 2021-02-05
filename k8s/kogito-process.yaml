@@ -1,0 +1,23 @@
+apiVersion: app.kiegroup.org/v1beta1
+kind: KogitoRuntime
+metadata:
+  name: kogito-test-process
+spec:
+  replicas: 1
+  image: 192.168.64.6:5000/bpmn/kogito-process-test
+#---
+#apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
+#kind: Ingress
+#metadata:
+#  name: process-quarkus-main-ingress
+#  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /
+#spec:
+#  rules:
+#    - host: process-quarkus-main
+#      http:
+#        paths:
+#          - path: /
+#            backend:
+#              serviceName: process-quarkus-main
+#              servicePort: 8080
