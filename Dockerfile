@@ -1,4 +1,5 @@
 FROM maven:3.6.3-jdk-8-slim AS build
+WORKDIR kogito-wrapper
 RUN mvn clean install -DskipTests
 
 FROM azul/zulu-openjdk:11
