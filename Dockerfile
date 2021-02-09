@@ -1,8 +1,8 @@
-FROM maven:3.6.3-jdk-11-slim AS build
+FROM maven:3.6.3-jdk-11 AS build
 RUN mkdir /kogito-wrapper
 WORKDIR /kogito-wrapper
 COPY . /kogito-wrapper
-RUN ls -la /kogito-wrapper/*
+RUN ls -la /kogito-wrapper
 RUN mvn -f /kogito-wrapper/pom.xml clean install -DskipTests
 
 FROM azul/zulu-openjdk:11
