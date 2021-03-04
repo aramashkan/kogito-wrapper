@@ -13,7 +13,9 @@ do
   rm src/main/resources/kogito/*
   cp "$f" src/main/resources/kogito/
   mvn clean install \
-    -Dquarkus.container-image.push=false
+    -Dquarkus.container-image.push=false \
+    -Dquarkus.container-image.build=false
+  echo $?
   [ -f "target/.*jar" ] && echo Failed build! && exit 1
   echo "Validated for $f file..."
 done

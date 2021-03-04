@@ -30,8 +30,11 @@ do
     -Dquarkus.container-image.registry=$REPO_HOST \
     -Dquarkus.container-image.name=$nameNormalize \
     -Dquarkus.container-image.tag=$tag
+  echo $?
   [ -f "target/.*jar" ] && echo Failed build! && exit 1
   echo "Pushed image for $f file..."
+  imageUrl="$REPO_HOST/kogito/$nameNormalize:$tag"
+  echo "Image $imageUrl"
   echo "$REPO_HOST/kogito/$nameNormalize:$tag;${name// /.};${filename// /.}" >> "deployMetaInf" && exit 0
 done
 
