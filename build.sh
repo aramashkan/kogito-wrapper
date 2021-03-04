@@ -13,6 +13,8 @@ echo "number of files $numberFiles"
 line=$(head -n 1 $KOGITO_PATH/.git/HEAD)
 refs=($line)
 tag=$(echo $(head -n 1 $KOGITO_PATH/.git/${refs[1]}))
+echo "Tag $tag"
+echo "Tag $EVENT_TAG"
 #####
 for f in $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml}
 do
