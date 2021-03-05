@@ -26,13 +26,12 @@ do
   name="${fullname%.*}"
   filename=$( echo ${fullname%.*} | tr '[:upper:]' '[:lower:]')
   nameNormalize=${filename// /_}
-  mvn clean install \
+  mvn -q clean install \
     -Dquarkus.container-image.insecure=true \
     -Dquarkus.container-image.group=kogito \
     -Dquarkus.container-image.registry=$REPO_HOST \
     -Dquarkus.container-image.name=$nameNormalize \
-    -Dquarkus.container-image.tag=$tag \
-    -Dq
+    -Dquarkus.container-image.tag=$tag
 
   result=$(echo $?)
   echo "Build result $result"
