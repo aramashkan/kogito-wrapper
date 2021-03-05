@@ -31,7 +31,9 @@ do
     -Dquarkus.container-image.group=kogito \
     -Dquarkus.container-image.registry=$REPO_HOST \
     -Dquarkus.container-image.name=$nameNormalize \
-    -Dquarkus.container-image.tag=$tag
+    -Dquarkus.container-image.tag=$tag \
+    -Dq
+
   result=$(echo $?)
   echo "Build result $result"
   [ -f "target/.*jar" ] && echo Failed build! && exit 1
