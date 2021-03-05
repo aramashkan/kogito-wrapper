@@ -32,11 +32,21 @@ do
     -Dquarkus.container-image.registry=$REPO_HOST \
     -Dquarkus.container-image.name=$nameNormalize \
     -Dquarkus.container-image.tag=$tag
-  echo $?
+  result=$(echo $?)
+  echo "Build result $result"
   [ -f "target/.*jar" ] && echo Failed build! && exit 1
   echo "Pushed image for $f file..."
   imageUrl="$REPO_HOST/kogito/$nameNormalize:$tag"
   echo "Image $imageUrl"
-  echo "$REPO_HOST/kogito/$nameNormalize:$tag;${name// /.};${filename// /.}" >> "deployMetaInf" && exit 0
+  [ ! -d k8s/workspace ] && mkdir k8s/workspace
+  cp k8s/*.yaml k8s/workspace
+  serviceName="${name// /.}"
+  ingressName="${filename// /.}"
+  sed -i '' -e "s#{ _service_name_ }#$serviceName#" "k8s/workspace/kogito-process.yaml"
+  sed -i '' -e "s#{ _image_ }#$imageUrl#" "k8s/workspace/kogito-process.yaml"
+  sed -i '' -e "s#{ _service_path_ }#${serviceName//./%20}#" "k8s/workspace/kogito-process.yaml"
+  sed -i '' -e "s#{ _ingress_name_ }#$ingressName#" "k8s/workspace/kogito-process.yaml"
+  cat k8s/workspace/kogito-process.yaml
+  echo "Done"
 done
 
