@@ -13,7 +13,6 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /{ _service_path_ }
 spec:
-  serviceAccountName: ingress-acc
   rules:
     - http:
         paths:

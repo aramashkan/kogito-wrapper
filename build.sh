@@ -2,7 +2,6 @@
 [ -z "$KOGITO_PATH" ] && echo Missing kogito path param! && exit 1
 [ -z "$REPO_HOST" ] && echo Missing repo host param! && exit 1
 cd wrapper
-[ ! -f validatedMetaInf ] && echo "Missing validated file for build" && exit 1
 
 rm deployMetaInf
 ##### get number of files
@@ -34,22 +33,20 @@ do
     -Dquarkus.container-image.registry=$REPO_HOST \
     -Dquarkus.container-image.name=$nameNormalize \
     -Dquarkus.container-image.tag=$tag
-
   result=$(echo $?)
-  echo "Build result $result"
-  [ -f "target/.*jar" ] && echo Failed build! && exit 1
+  echo "Maven build result: $result"
+  [ $result -eq 1 ] && exit 1
   echo "Pushed image for $f file..."
   imageUrl="$REPO_HOST/kogito/$nameNormalize:$tag"
   echo "Image $imageUrl"
   [ ! -d k8s/workspace ] && mkdir k8s/workspace
   cp k8s/*.yaml k8s/workspace
-  serviceName="${name// /.}"
+  serviceName="${filename// /-}"
   ingressName="${filename// /.}"
   sed -i '' -e "s#{ _service_name_ }#$serviceName#" "k8s/workspace/kogito-process.yaml"
   sed -i '' -e "s#{ _image_ }#$imageUrl#" "k8s/workspace/kogito-process.yaml"
-  sed -i '' -e "s#{ _service_path_ }#${serviceName//./%20}#" "k8s/workspace/kogito-process.yaml"
+  sed -i '' -e "s#{ _service_path_ }#${name// /%20}#" "k8s/workspace/kogito-process.yaml"
   sed -i '' -e "s#{ _ingress_name_ }#$ingressName#" "k8s/workspace/kogito-process.yaml"
   cat k8s/workspace/kogito-process.yaml
-  echo "Done"
 done
 
