@@ -5,6 +5,7 @@ numberFiles=$(echo $( ls -l $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml} | wc -l ))
 echo "number of files $numberFiles"
 [ $numberFiles -gt 1 ] && echo Wrong number of files! && exit 1
 #####
+cd wrapper
 rm validatedMetaInf
 for f in $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml}
 do

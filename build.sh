@@ -9,6 +9,7 @@ numberFiles=$(echo $( ls -l $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml} | wc -l ))
 echo "number of files $numberFiles"
 [ $numberFiles -gt 1 ] && echo Wrong number of files! && exit 1
 #####
+cd wrapper
 ##### parse git commit hash
 #line=$(head -n 1 $KOGITO_PATH/.git/HEAD)
 #refs=($line)
@@ -20,7 +21,6 @@ echo "Event body $EVENT_TAG"
 for f in $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml}
 do
   [ ! -f "$f" ] && continue
-  ls
   echo "Processing $f file..."
   rm src/main/resources/kogito/*
   cp "$f" src/main/resources/kogito/
