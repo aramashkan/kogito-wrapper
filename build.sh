@@ -1,6 +1,7 @@
 #!/bin/bash
 [ -z "$KOGITO_PATH" ] && echo Missing kogito path param! && exit 1
 [ -z "$REPO_HOST" ] && echo Missing repo host param! && exit 1
+cd wrapper
 [ ! -f validatedMetaInf ] && echo "Missing validated file for build" && exit 1
 
 rm deployMetaInf
@@ -9,7 +10,6 @@ numberFiles=$(echo $( ls -l $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml} | wc -l ))
 echo "number of files $numberFiles"
 [ $numberFiles -gt 1 ] && echo Wrong number of files! && exit 1
 #####
-cd wrapper
 ##### parse git commit hash
 #line=$(head -n 1 $KOGITO_PATH/.git/HEAD)
 #refs=($line)
