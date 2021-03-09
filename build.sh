@@ -7,7 +7,7 @@ rm deployMetaInf
 ##### get number of files
 numberFiles=$(echo $(ls -l $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml} | wc -l))
 echo "number of files $numberFiles"
-[ $numberFiles -gt 1 ] && echo Wrong number of files! && exit 1
+[ $numberFiles -ne 1 ] && echo Wrong number of files! && exit 1
 #####
 ##### parse git commit hash
 #line=$(head -n 1 $KOGITO_PATH/.git/HEAD)
@@ -34,7 +34,7 @@ for f in $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml}; do
     -Dquarkus.container-image.tag=$tag
   result=$(echo $?)
   echo "Maven build result: $result"
-  [ $result -eq 1 ] && exit 1
+  [ $result -ne 0 ] && exit 1
   echo "Pushed image for $f file..."
   imageUrl="$REPO_HOST/kogito/$nameNormalize:$tag"
   echo "Image $imageUrl"

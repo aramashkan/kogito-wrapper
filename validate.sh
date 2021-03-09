@@ -17,7 +17,7 @@ do
     -Dquarkus.container-image.build=false
   result=$(echo $?)
   echo "Maven build result: $result"
-  [ $result -eq 1 ] && exit 1
+  [ $result -ne 0 ] && exit 1
   echo "Validated for $f file..."
 done
 
