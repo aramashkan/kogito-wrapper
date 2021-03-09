@@ -5,7 +5,7 @@ cd wrapper
 
 rm deployMetaInf
 ##### get number of files
-numberFiles=$(echo $( ls -l $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml} | wc -l ))
+numberFiles=$(echo $(ls -l $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml} | wc -l))
 echo "number of files $numberFiles"
 [ $numberFiles -gt 1 ] && echo Wrong number of files! && exit 1
 #####
@@ -17,15 +17,14 @@ tag=$(head -n 1 $KOGITO_PATH/.git/HEAD)
 echo "Tag $tag"
 echo "Event body $EVENT_TAG"
 #####
-for f in $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml}
-do
+for f in $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml}; do
   [ ! -f "$f" ] && continue
   echo "Processing $f file..."
   rm src/main/resources/kogito/*
   cp "$f" src/main/resources/kogito/
   fullname=$(basename -- "$f")
   name="${fullname%.*}"
-  filename=$( echo ${fullname%.*} | tr '[:upper:]' '[:lower:]')
+  filename=$(echo ${fullname%.*} | tr '[:upper:]' '[:lower:]')
   nameNormalize=${filename// /_}
   mvn -q clean install \
     -Dquarkus.container-image.insecure=true \
@@ -47,6 +46,8 @@ do
   sed -i '' -e "s#{ _image_ }#$imageUrl#" "k8s/workspace/kogito-process.yaml"
   sed -i '' -e "s#{ _service_path_ }#${name// /%20}#" "k8s/workspace/kogito-process.yaml"
   sed -i '' -e "s#{ _ingress_name_ }#$ingressName#" "k8s/workspace/kogito-process.yaml"
+  sed -i '' -e "s#{ _author_ }#$GIT_AUTHOR#" "k8s/workspace/kogito-process.yaml"
+  sed -i '' -e "s#{ _hash_ }#$GIT_HASH#" "k8s/workspace/kogito-process.yaml"
+  sed -i '' -e "s#{ _message_ }#$GIT_MESSAGE#" "k8s/workspace/kogito-process.yaml"
   cat k8s/workspace/kogito-process.yaml
 done
-

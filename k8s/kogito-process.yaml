@@ -2,6 +2,10 @@ apiVersion: app.kiegroup.org/v1beta1
 kind: KogitoRuntime
 metadata:
   name: { _service_name_ }
+  labels:
+    author: { _author_ }
+    message: { _message_ }
+    hash: { _hash_ }
 spec:
   replicas: 1
   image: { _image_ }
