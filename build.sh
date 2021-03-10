@@ -22,6 +22,8 @@ for f in $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml}; do
   echo "Processing $f file..."
   rm src/main/resources/kogito/*
   cp "$f" src/main/resources/kogito/
+  echo "Number copied files..."
+  echo $(ls -l src/main/resources/kogito/*.{dmn,bpmn,bpmn2,pmml} | wc -l)
   fullname=$(basename -- "$f")
   name="${fullname%.*}"
   filename=$(echo ${fullname%.*} | tr '[:upper:]' '[:lower:]')
