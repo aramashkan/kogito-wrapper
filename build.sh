@@ -22,10 +22,10 @@ for f in $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml}; do
   echo "Processing $f file..."
   rm src/main/resources/kogito/*
   cp "$f" src/main/resources/kogito
-  ls src/main/resources/kogito
+  ls src/main/resources/kogito/
   echo "------"
-  echo "Number copied files..."
-  numberFiles=$(echo $(ls -l $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml} | wc -l))
+  numberFiles=$(echo $(ls -l src/main/resources/kogito/*.{dmn,bpmn,bpmn2,pmml} | wc -l))
+  echo "Number copied files...$numberFiles"
   [ $numberFiles -ne 1 ] && echo Wrong number of copied files! && exit 1
   fullname=$(basename -- "$f")
   name="${fullname%.*}"
