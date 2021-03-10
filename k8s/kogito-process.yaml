@@ -2,7 +2,7 @@ apiVersion: app.kiegroup.org/v1beta1
 kind: KogitoRuntime
 metadata:
   name: { _service_name_ }
-  labels:
+  annotations:
     author: { _author_ }
     message: { _message_ }
     hash: { _hash_ }
