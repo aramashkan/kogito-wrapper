@@ -21,7 +21,7 @@ for f in $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml}; do
   [ ! -f "$f" ] && continue
   echo "Processing $f file..."
   rm src/main/resources/kogito/*
-  cp "$f" src/main/resources/kogito/
+  cp $f ./src/main/resources/kogito/
   ls /workspace/kogito-process/
   echo "------"
   numberFiles=$(echo $(ls -l src/main/resources/kogito/*.{dmn,bpmn,bpmn2,pmml} | wc -l))
