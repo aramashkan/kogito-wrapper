@@ -23,4 +23,4 @@ spec:
           - path: /
             backend:
               serviceName: { _service_name_ }
-              servicePort: 8080
+              servicePort: 80
