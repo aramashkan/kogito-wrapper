@@ -10,8 +10,8 @@ for f in $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml}
 do
   [ ! -f "$f" ] && continue
   echo "Processing $f file..."
-  rm src/main/resources/kogito/*
-  cp "$f" src/main/resources/kogito/
+  rm src/main/resources/*.{dmn,bpmn,bpmn2,pmml}
+  cp "$f" src/main/resources/
   mvn clean install \
     -Dquarkus.container-image.push=false \
     -Dquarkus.container-image.build=false
@@ -19,7 +19,7 @@ do
   echo "Maven build result: $result"
   [ $result -ne 0 ] && exit 1
   echo "Validated for $f file..."
-  rm src/main/resources/kogito/*
+  rm src/main/resources/*.{dmn,bpmn,bpmn2,pmml}
   mvn clean
 done
 
