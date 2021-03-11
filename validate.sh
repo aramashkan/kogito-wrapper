@@ -19,5 +19,7 @@ do
   echo "Maven build result: $result"
   [ $result -ne 0 ] && exit 1
   echo "Validated for $f file..."
+  rm src/main/resources/kogito/*
+  mvn clean
 done
 
