@@ -44,13 +44,7 @@ for f in $KOGITO_PATH/*.{dmn,bpmn,bpmn2,pmml}; do
   [ ! -d k8s/workspace ] && mkdir k8s/workspace
   cp k8s/*.yaml k8s/workspace
   serviceName="${filename// /-}"
-  ingressName="${filename// /.}"
   sed -i '' -e "s#{ _service_name_ }#$serviceName#" "k8s/workspace/kogito-process.yaml"
   sed -i '' -e "s#{ _image_ }#$imageUrl#" "k8s/workspace/kogito-process.yaml"
-  sed -i '' -e "s#{ _service_path_ }#${name// /%20}#" "k8s/workspace/kogito-process.yaml"
-  sed -i '' -e "s#{ _ingress_name_ }#$ingressName#" "k8s/workspace/kogito-process.yaml"
-  sed -i '' -e "s#{ _author_ }#$GIT_AUTHOR#" "k8s/workspace/kogito-process.yaml"
-  sed -i '' -e "s#{ _hash_ }#$GIT_HASH#" "k8s/workspace/kogito-process.yaml"
-  sed -i '' -e "s#{ _message_ }#$GIT_MESSAGE#" "k8s/workspace/kogito-process.yaml"
   cat k8s/workspace/kogito-process.yaml
 done

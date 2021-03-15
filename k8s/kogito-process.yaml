@@ -2,25 +2,11 @@ apiVersion: app.kiegroup.org/v1beta1
 kind: KogitoRuntime
 metadata:
   name: { _service_name_ }
-  annotations:
-    author: { _author_ }
-    message: { _message_ }
-    hash: { _hash_ }
+  labels:
+    app.kubernetes.io/name: { _service_name_ }
+    app.kubernetes.io/version: { _version_ }
+    app.kubernetes.io/component: bpm
+    app.kubernetes.io/part-of: riskengine
 spec:
   replicas: 1
   image: { _image_ }
----
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: { _ingress_name_ }
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /{ _service_path_ }
-spec:
-  rules:
-    - http:
-        paths:
-          - path: /
-            backend:
-              serviceName: { _service_name_ }
-              servicePort: 80
