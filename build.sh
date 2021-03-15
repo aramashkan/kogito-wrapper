@@ -24,7 +24,7 @@ for f in $KOGITO_PATH/*.{bpmn,bpmn2}; do
     -Dquarkus.container-image.insecure=true \
     -Dquarkus.container-image.group=kogito \
     -Dquarkus.container-image.registry=$REPO_HOST \
-    -Dquarkus.container-image.name=$nameNormalize-$P_VERSION \
+    -Dquarkus.container-image.name=$nameNormalize \
     -Dquarkus.container-image.tag=$GIT_HASH
   result=$(echo $?)
   echo "Maven build result: $result"
